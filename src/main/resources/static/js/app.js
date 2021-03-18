@@ -89,12 +89,49 @@ var app = (function () {
 
         }
     }
+    var newBluePrint = function(author){
+            if(author==authorActual){
+                $('#newPrint').removeAttr("hidden");
+                $('#newPrintBo').removeAttr("hidden");
+                abrir =true;
+                console.log("Ingreso a newBluePrint");
+                var canvas=document.getElementById("panelCanvas");
+                var ctx=canvas.getContext("2d");
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath();
+                $('#nameBlueprint').html("Current blueprint: ");
+            }
+    }
+    var guardar = function(name){
+            bluePrintActual = {
+                author: authorActual,
+                points: [],
+                name: name
+            };
+    }
+    var saveBluePrint = function(){
+            if(nombre == null){
+                console.log("final")
+                nombre= $('#newPrint').val();
+            }
+            console.log("nmmm "+nombre);
+            var dibujo = {
+                author: authorActual,
+                points: bluePrintActual.points,
+                name: nombre,
+              };
+              apiclient.setBlueprint(authorActual, nombre, JSON.stringify(dibujo));
+    }
+
 
     return {
         getBlueprintsByAuthor: getBlueprintsByAuthor,
         getBlueprintsByNameAndAuthor: getBlueprintsByNameAndAuthor,
-        //newBluePrint:newBluePrint,
-        init:init
+        newBluePrint:newBluePrint,
+        init:init,
+        guardar:guardar,
+        //saveBluePrint:saveBluePrint
+        //deleteBlueprint:deleteBlueprint
     }
 
 })();

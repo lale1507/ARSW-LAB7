@@ -64,6 +64,18 @@ var apimock = (function () {
                 return blueprint.name == name
             });
             callback(null, blueprint)
+        },
+        createBlueprint: function (author, name) {
+                let promise = new Promise((resolve, reject) => {
+                let blueprint = {
+                    author: author,
+                    name: name,
+                };
+                authorBlueprints = mockdata[author];
+                authorBlueprints.push(blueprint);
+                resolve();
+                });
+            return promise;
         }
     }
 

@@ -19,6 +19,26 @@ apiclient = (function() {
                 async: true
             });
         },
+        setBlueprint: function(author, name, newPlan) {
+
+            var putPromise = $.ajax({
+                url: "/blueprints/" + author + "/" + name + "/",
+                type: "PUT",
+                data: newPlan,
+                contentType: "application/json"
+                });
+                putPromise.then(
+                function() {
+                    console.log(putPromise);
+                    app.getBlueprintsByAuthor(author);
+                },
+                function() {
+                    console.info("Error");
+                }
+            );
+        },
+
+
     };
 })();
 
